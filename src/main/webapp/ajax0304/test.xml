@@ -1,0 +1,32 @@
+<data>
+    <team num="1">
+        <name>김선아</name>
+        <driver>있음</driver>
+        <addr>경기도 하남시</addr>
+        <writeday>2024-03-04</writeday>
+    </team>
+    <team num="2">
+        <name>김민선</name>
+        <driver>있음</driver>
+        <addr>경기도 용인시</addr>
+        <writeday>2024-03-04</writeday>
+    </team>
+    <team num="3">
+        <name>이연아</name>
+        <driver>없음</driver>
+        <addr>서울시 서초구</addr>
+        <writeday>2024-03-04</writeday>
+    </team>
+    <team num="4">
+        <name>김연아</name>
+        <driver>있음</driver>
+        <addr>인천시 서구</addr>
+        <writeday>2024-03-04</writeday>
+    </team>
+    <team num="5">
+        <name>손미나</name>
+        <driver>없음</driver>
+        <addr>부산시 해운대구</addr>
+        <writeday>2024-03-04</writeday>
+    </team>
+</data>

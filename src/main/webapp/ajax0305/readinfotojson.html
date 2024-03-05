@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Gaegu&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap"
+          rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <title>Insert title here</title>
+    <style>
+        #show {
+            font-family: 'Nanum Pen Script';
+            font-size: 1.5em;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<h2>info db_json으로 파싱한것 읽어오기</h2>
+<button type="button" class="btn btn-info" id="btninfo">info읽기</button>
+
+<div id="show"></div>
+
+
+
+<script>
+    $("#btninfo").click(function (){
+        $.ajax({
+            type: "get",
+            url: "infotojson.jsp",
+            dataType: "json",
+            success: function (res) {
+                var s = "";
+                $.each(res, function (idx) {
+                    s += "<div class='alert alert-success' style='width: 300px'>";
+                    s += "index: " + idx + "<br>";
+                    s += "num: " + this.num + "<br>";
+                    s += "이름: " + this.name + "<br>";
+                    s += "핸드폰: " + this.hp + "<br>";
+                    s += "나이: " + this.age + "<br>";
+                    s += "<img src='" + this.photo + "' width='100'>";
+                    s += "</div>";
+                });
+                $("#show").html(s);
+            },
+        })
+    })
+</script>
+
+</body>
+</html>

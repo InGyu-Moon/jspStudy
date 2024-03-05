@@ -26,8 +26,11 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-//mysql
+    //mysql
     runtimeOnly 'mysql:mysql-connector-java:8.0.28'
+
+    // simple json
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 test {

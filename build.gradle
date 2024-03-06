@@ -26,11 +26,16 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
     //mysql
     runtimeOnly 'mysql:mysql-connector-java:8.0.28'
-
     // simple json
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    //cos.jar
+    implementation 'commons-fileupload:commons-fileupload:1.4'
+
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
 }
 
 test {

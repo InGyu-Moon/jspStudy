@@ -1,12 +1,15 @@
 package org.example.jspstudy.ajaxboard;
 
+
+import java.util.Date;
+
 public class AjaxBoardDto {
     private String num;
     private String writer;
     private String subject;
     private String content;
     private String avata;
-    private String writeday;
+    private Date writeday;
 
     public String getNum() {
         return num;
@@ -48,11 +51,23 @@ public class AjaxBoardDto {
         this.avata = avata;
     }
 
-    public String getWriteday() {
+    public Date getWriteday() {
         return writeday;
     }
 
-    public void setWriteday(String writeday) {
+    public void setWriteday(Date writeday) {
         this.writeday = writeday;
+    }
+
+    @Override
+    public String toString() {
+        return "AjaxBoardDto{" +
+                "num='" + num + '\'' +
+                ", writer='" + writer + '\'' +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                ", avata='" + avata + '\'' +
+                ", writeday=" + writeday +
+                '}';
     }
 }

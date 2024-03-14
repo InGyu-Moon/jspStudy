@@ -1,4 +1,4 @@
-package org.example.jspstudy.myinfo;
+package org.example.jspstudy.uploadboard;
 
 
 import org.example.jspstudy.mysql.db.DbConnect;
@@ -7,47 +7,46 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
-public class MyInfoDao {
-
+public class UploadBoardDao {
     DbConnect db=new DbConnect();
 
-    public void insertMyInfo(MyInfoDto dto)
+    public void insertUploadBoard(UploadBoardDto dto)
     {
         Connection conn=db.getConnection();
         PreparedStatement pstmt=null;
 
-        String sql="insert into myinfo values(null,?,?,?,?,now())";
+        String sql="insert into uploadboard values(null,?,?,?,?,?,0,now())";
 
         try {
             pstmt=conn.prepareStatement(sql);
 
-            pstmt.setString(1, dto.getName());
-            pstmt.setString(2, dto.getHp());
-            pstmt.setString(3, dto.getBlood());
-            pstmt.setString(4, dto.getBirth());
-
+            pstmt.setString(1, dto.getWriter());
+            pstmt.setString(2, dto.getSubject());
+            pstmt.setString(3, dto.getContent());
+            pstmt.setString(4, dto.getImgname());
+            pstmt.setString(5, dto.getPass());
             pstmt.execute();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("e = " + e);
         }finally {
             db.dbClose(pstmt, conn);
         }
 
     }
 
-    public List<MyInfoDto> getAllInfos()
+    //전체데이타 List에 담아서 리턴하는 메서드
+    public List<UploadBoardDto> getAllDatas()
     {
-        List<MyInfoDto> list=new ArrayList<MyInfoDto>();
+        List<UploadBoardDto> list=new Vector<UploadBoardDto>();
 
         Connection conn=db.getConnection();
         PreparedStatement pstmt=null;
         ResultSet rs=null;
 
-        String sql="select * from myinfo order by num desc";
+        String sql="select * from uploadboard order by num desc";
 
         try {
             pstmt=conn.prepareStatement(sql);
@@ -55,13 +54,14 @@ public class MyInfoDao {
 
             while(rs.next())
             {
-                MyInfoDto dto=new MyInfoDto();
+                UploadBoardDto dto=new UploadBoardDto();
 
                 dto.setNum(rs.getString("num"));
-                dto.setName(rs.getString("name"));
-                dto.setBlood(rs.getString("blood"));
-                dto.setHp(rs.getString("hp"));
-                dto.setBirth(rs.getString("birth"));
+                dto.setWriter(rs.getString("writer"));
+                dto.setSubject(rs.getString("subject"));
+                dto.setContent(rs.getString("content"));
+                dto.setImgname(rs.getString("imgname"));
+                dto.setReadcount(rs.getInt("readcount"));
                 dto.setWriteday(rs.getTimestamp("writeday"));
 
                 list.add(dto);
@@ -77,16 +77,16 @@ public class MyInfoDao {
         return list;
     }
 
-    public void deleteInfo(String num)
+    //조회수 1증가하는 메서드
+    public void updateReadCount(String num)
     {
         Connection conn=db.getConnection();
         PreparedStatement pstmt=null;
 
-        String sql="delete from myinfo where num=?";
+        String sql="update uploadboard set readcount=readcount+1 where num=?";
 
         try {
             pstmt=conn.prepareStatement(sql);
-
             pstmt.setString(1, num);
             pstmt.execute();
         } catch (SQLException e) {
@@ -98,16 +98,16 @@ public class MyInfoDao {
 
     }
 
-    //num에 대한 dto반환
-    public MyInfoDto getOneData(String num)
+    //num에 해당하는 데이타 리턴
+    public UploadBoardDto getData(String num)
     {
-        MyInfoDto dto=new MyInfoDto();
+        UploadBoardDto dto=new UploadBoardDto();
 
         Connection conn=db.getConnection();
         PreparedStatement pstmt=null;
         ResultSet rs=null;
 
-        String sql="select * from myinfo where num=?";
+        String sql="select * from uploadboard where num=?";
 
         try {
             pstmt=conn.prepareStatement(sql);
@@ -117,10 +117,12 @@ public class MyInfoDao {
             if(rs.next())
             {
                 dto.setNum(rs.getString("num"));
-                dto.setName(rs.getString("name"));
-                dto.setBlood(rs.getString("blood"));
-                dto.setHp(rs.getString("hp"));
-                dto.setBirth(rs.getString("birth"));
+                dto.setWriter(rs.getString("writer"));
+                dto.setSubject(rs.getString("subject"));
+                dto.setContent(rs.getString("content"));
+                dto.setImgname(rs.getString("imgname"));
+                dto.setReadcount(rs.getInt("readcount"));
+                dto.setWriteday(rs.getTimestamp("writeday"));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -131,32 +133,5 @@ public class MyInfoDao {
 
 
         return dto;
-    }
-
-
-    //수정
-    public void updateInfo(MyInfoDto dto)
-    {
-        Connection conn=db.getConnection();
-        PreparedStatement pstmt=null;
-
-        String sql="update myinfo set name=?,blood=?,hp=?,birth=? where num=?";
-
-        try {
-            pstmt=conn.prepareStatement(sql);
-
-            pstmt.setString(1, dto.getName());
-            pstmt.setString(2, dto.getBlood());
-            pstmt.setString(3, dto.getHp());
-            pstmt.setString(4, dto.getBirth());
-            pstmt.setString(5, dto.getNum());
-            pstmt.execute();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally {
-            db.dbClose(pstmt, conn);
-        }
-
     }
 }

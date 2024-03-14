@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class DbConnect {
     static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String MYSQL_URL = "jdbc:mysql://localhost:3306/coffee";
+    static final String MYSQL_URL = "jdbc:mysql://localhost:3306/ajax";
 
 
     public DbConnect(){

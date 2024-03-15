@@ -11,6 +11,19 @@ public class SimpleBoardDto {
     private int readcount;
     private Timestamp writeday;
 
+    @Override
+    public String toString() {
+        return "SimpleBoardDto{" +
+                "num='" + num + '\'' +
+                ", writer='" + writer + '\'' +
+                ", pass='" + pass + '\'' +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                ", readcount=" + readcount +
+                ", writeday=" + writeday +
+                '}';
+    }
+
     public String getNum() {
         return num;
     }

@@ -11,5 +11,22 @@
     <title>Insert title here</title>
 </head>
 <body>
+<%
+    String num = request.getParameter("num");
+%>
+
+<div style="margin: 200px 200px; width: 300px;">
+    <form action="updatepassaction.jsp?num=<%=num%>" method="post">
+        <div class="d-inline-flex">
+            <h4 style="width: 100px;">비밀번호</h4>
+            <input class="form-control" required name="pass" style="width: 150px;">
+            <input hidden value="<%=num%>" name="num">
+
+        </div>
+        <br>
+        <button type="submit" class="btn btn-danger" style="margin-left: 100px;">수정</button>
+    </form>
+</div>
+
 </body>
 </html>

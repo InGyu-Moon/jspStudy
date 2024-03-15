@@ -1,6 +1,6 @@
 package org.example.jspstudy.simpleboard;
 
-import org.example.jspajaxproject.mysql.db.DbConnect;
+import org.example.jspstudy.mysql.db.DbConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -190,12 +190,72 @@ public class SimpleBoardDao {
         }finally {
             db.dbClose(rs, pstmt, conn);
         }
-
-
-
         return list;
-
     }
 
+    public void deleteData(String num) {
+        Connection conn = db.getConnection();
+        PreparedStatement pstmt = null;
+        String sql = "delete from simpleboard where num = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, num);
+            pstmt.execute();
+        } catch (SQLException e) {
+            System.out.println("e = " + e);
+        }finally {
+            db.dbClose(pstmt, conn);
+        }
+    }
+
+    public boolean checkPassword(String num, String inputPass) {
+        boolean result = false;
+        Connection conn = db.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "select pass from simpleboard where num = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, num);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String dbPass = rs.getString("pass");
+                if(dbPass.equals(inputPass))
+                    result = true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            db.dbClose(rs, pstmt, conn);
+        }
+        return result;
+
+    }
+    public void updateData(SimpleBoardDto dto)
+    {
+        //subject,content 만수정
+        Connection conn=db.getConnection();
+        PreparedStatement pstmt=null;
+
+        String sql="update simpleboard set subject=?,content=?,writer=? where num=?";
+
+        try {
+            pstmt=conn.prepareStatement(sql);
+
+            pstmt.setString(1, dto.getSubject());
+            pstmt.setString(2, dto.getContent());
+            pstmt.setString(3, dto.getWriter());
+            pstmt.setString(4, dto.getNum());
+            pstmt.execute();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            db.dbClose(pstmt, conn);
+        }
+
+    }
 
 }

@@ -1,3 +1,5 @@
+<%@ page import="org.example.jspstudy.simpleboardanswer.SimpleAnswerDto" %>
+<%@ page import="org.example.jspstudy.simpleboardanswer.SimpleAnswerDao" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -12,20 +14,21 @@
 </head>
 <body>
 <%
+    SimpleAnswerDao dao = new SimpleAnswerDao();
+    SimpleAnswerDto dto = new SimpleAnswerDto();
+
     String num = request.getParameter("num");
+    String nickname = request.getParameter("nickname");
+    String content = request.getParameter("content");
+
+    dto.setNum(num);
+    dto.setNickname(nickname);
+    dto.setContent(content);
+
+    dao.insertAnswer(dto);
+
+    response.sendRedirect("../simpleboard/contentview.jsp?num="+num);
+
 %>
-
-    <div style="margin: 200px 200px; width: 300px;">
-        <form action="deletepassaction.jsp" method="post">
-            <div class="d-inline-flex">
-                <h4 style="width: 100px;">비밀번호</h4>
-                <input class="form-control" required name="pass" style="width: 150px;">
-                <input type="hidden" name="num" value="<%=num%>">
-            </div>
-            <br>
-            <button type="submit" class="btn btn-danger" style="margin-left: 100px;">삭제</button>
-        </form>
-    </div>
-
 </body>
 </html>

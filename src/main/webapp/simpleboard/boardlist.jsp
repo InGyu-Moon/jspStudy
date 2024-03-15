@@ -1,5 +1,5 @@
-<%@ page import="org.example.jspajaxproject.simpleboard.SimpleBoardDao" %>
-<%@ page import="org.example.jspajaxproject.simpleboard.SimpleBoardDto" %>
+<%@ page import="org.example.jspstudy.simpleboard.SimpleBoardDao" %>
+<%@ page import="org.example.jspstudy.simpleboard.SimpleBoardDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -144,11 +144,19 @@
         </li>
         <%}
             for(int pp=startPage;pp<=endPage;pp++)
-            {%>
-                <li class="page-item active">
+            {
+                if(pp==currentPage)
+                {%>
+        <li class="page-item active">
+            <a class="page-link" href="boardlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
+        </li>
+        <%}else
+        {%>
+        <li class="page-item">
             <a class="page-link" href="boardlist.jsp?currentPage=<%=pp%>"><%=pp %></a>
         </li>
         <%}
+        }
 
             //다음
             if(endPage<totalPage)
@@ -159,6 +167,7 @@
         </li>
         <%}
         %>
+
     </ul>
 
 

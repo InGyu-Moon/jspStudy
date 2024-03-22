@@ -17,9 +17,17 @@
     String pass = request.getParameter("pass");
 
     MemberDao dao = new MemberDao();
+
+    //비번체크후 맞을경우 삭제, 틀릴경우 경고후 이전페이지로 가기
     boolean equalPass = dao.isEqualPass(num, pass);
     if (equalPass) {
         dao.deleteMemberByNum(num);
+
+        //세션 삭제
+        session.removeAttribute("loginok");
+        session.removeAttribute("myid");
+        session.removeAttribute("saveok");
+
 %>
 <script>
     alert("회원탈퇴 성공");
